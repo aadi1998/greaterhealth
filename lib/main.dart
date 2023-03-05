@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'docview.dart';
 import 'patientview.dart';
 import 'LoginPage.dart';
+import 'package:http/http.dart' as http;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
