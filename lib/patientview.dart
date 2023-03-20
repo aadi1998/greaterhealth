@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'EcgData.dart';
 
 class patientview extends StatelessWidget {
-  @override
   final String URL = "http://68.183.205.184/index.php";
+  //static final List<EcgData> ecgData = ecgData;
 
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Patient View"),
-        ),
-        body: Container(
-            child: Column(children: <Widget>[
-              Column(children: <Widget>[
+      appBar: AppBar(
+        title: Text("Patient View"),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
                 SizedBox(
                   height: 20,
                 ),
@@ -50,11 +54,12 @@ class patientview extends StatelessWidget {
                   ],
                 ),
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image(
-                      image: AssetImage("assets/bpm.jpg"),
-                      height: 250,
-                    )),
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                    image: AssetImage("assets/bpm.jpg"),
+                    height: 250,
+                  ),
+                ),
                 Row(
                   children: const [
                     Text(
@@ -78,10 +83,29 @@ class patientview extends StatelessWidget {
                   ],
                 ),
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child:
-                    Image(image: AssetImage("assets/ecgimg.jpg"), height: 250)),
-              ])
-            ])));
-  }
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                    image: AssetImage("assets/ecgimg.jpg"),
+                    height: 250,
+                  ),
+                ),
+                Expanded(
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                  series: <LineSeries>[
+                      LineSeries<EcgData, String>(
+                        dataSource: ecgData,
+                       xValueMapper: (EcgData ecg, _) => ecg.timestamp,
+                        yValueMapper: (EcgData ecg, _) => ecg.ecgValue,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+   );
+    }
 }

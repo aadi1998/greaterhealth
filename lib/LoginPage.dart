@@ -37,12 +37,13 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
     super.dispose();
   }
-
-  Future<void> _attemptLogin(String name, String password, String email, String ecg_data, String bpm_data,) async {
+//String ecg_data, String bpm_data, String ir_value, String red_value
+  Future<void> _attemptLogin(String name, String password, String email, ) async {
     try {
       final response = await http.post(
         Uri.parse(URL),
-        body: {'username': name, 'password': password, 'email': email, 'ecg_data': ecg_data, },
+        //'ecg_data': ecg_data, 'bpm_data': bpm_data, 'ir_value': ir_value, 'red_value': red_value
+        body: {'username': name, 'password': password, 'email': email },
       );
 
       if (response.statusCode == 200) {
